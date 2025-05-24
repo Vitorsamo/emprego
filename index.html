@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emprego Food</title>
+    <style>
+        :root {
+            --primary: #e54646;
+            --primary-dark: #ca3838;
+            --text: #1F2937;
+            --text-light: #6B7280;
+            --bg-light: #F9FAFB;
+            --border: #E5E7EB;
+            --white: #FFFFFF;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            select:focus,
+            textarea:focus,
+            input:focus {
+                font-size: 16px;
+            }
+        }
+        
+        /* Reset e estilos base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--bg-light);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+    </style>
+    <!-- Preload de recursos críticos -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="styles.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- Fallback para caso o JavaScript esteja desabilitado -->
+    <noscript>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+    </noscript>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    
+    <!-- CSS de carregamento crítico -->
+    <style>
+        /* Estilos críticos para exibição imediata */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1.5rem;
+        }
+        
+        /* Garante que o conteúdo não fique escondido atrás do header fixo */
+        main {
+            padding-top: 80px;
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <div class="header-left">
+                <a href="index.html" class="logo-link">
+                    <img src="img/Logo-empregofood.png" alt="Emprego Food" class="logo-img">
+                </a>
+                <button class="mobile-menu-toggle" aria-label="Abrir menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li class="dropdown">
+                        <a href="#" class="nav-link active">Vagas <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-group">
+                                <a href="vagas.html" class="dropdown-item">
+                                    <i class="fas fa-briefcase"></i>
+                                    <span>Todas as vagas</span>
+                                </a>
+                                <a href="#vagas-destaque" class="dropdown-item" onclick="event.preventDefault(); document.getElementById('vagas-destaque').scrollIntoView({ behavior: 'smooth' });">
+                                    <i class="fas fa-star"></i>
+                                    <span>Vagas em destaque</span>
+                                </a>
+                                <a href="#ultimas-vagas" class="dropdown-item highlight" onclick="event.preventDefault(); document.getElementById('ultimas-vagas').scrollIntoView({ behavior: 'smooth' });">
+                                    <i class="fas fa-bolt"></i>
+                                    <span>Últimas vagas</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-group">
+                                <a href="vagas/cozinha.html" class="dropdown-item">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Cozinha</span>
+                                </a>
+                                <a href="vagas/atendimento.html" class="dropdown-item">
+                                    <i class="fas fa-concierge-bell"></i>
+                                    <span>Atendimento</span>
+                                </a>
+                                <a href="vagas/limpeza.html" class="dropdown-item">
+                                    <i class="fas fa-broom"></i>
+                                    <span>Limpeza</span>
+                                </a>
+                                <a href="vagas/entrega.html" class="dropdown-item">
+                                    <i class="fas fa-motorcycle"></i>
+                                    <span>Entrega</span>
+                                </a>
+                                <a href="vagas/gestao.html" class="dropdown-item">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    <span>Gestão</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Empresas <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-group">
+                                <a href="todas-empresas.html" class="dropdown-item">
+                                    <i class="fas fa-building"></i>
+                                    <span>Todas as empresas</span>
+                                </a>
+                                <a href="top-anunciantes.html" class="dropdown-item highlight">
+                                    <i class="fas fa-trophy"></i>
+                                    <span>Top anúnciantes</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-group">
+                                <a href="empresas/fast-food.html" class="dropdown-item">
+                                    <i class="fas fa-hamburger"></i>
+                                    <span>Fast Food</span>
+                                </a>
+                                <a href="empresas/delivery.html" class="dropdown-item">
+                                    <i class="fas fa-truck"></i>
+                                    <span>Delivery</span>
+                                </a>
+                                <a href="empresas/restaurante.html" class="dropdown-item">
+                                    <i class="fas fa-utensils"></i>
+                                    <span>Restaurante</span>
+                                </a>
+                                <a href="empresas/bar.html" class="dropdown-item">
+                                    <i class="fas fa-glass-martini-alt"></i>
+                                    <span>Bar</span>
+                                </a>
+                                <a href="empresas/padaria.html" class="dropdown-item">
+                                    <i class="fas fa-bread-slice"></i>
+                                    <span>Padarias</span>
+                                </a>
+                                <a href="empresas/outros.html" class="dropdown-item">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                    <span>Outros</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Comunidade <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-group">
+                                <a href="dicas-curriculo.html" class="dropdown-item">
+                                    <i class="fas fa-file-alt"></i>
+                                    <span>Dicas de currículo</span>
+                                </a>
+                                <a href="unyfood.html" class="dropdown-item highlight">
+                                    <i class="fas fa-graduation-cap"></i>
+                                    <span>UnyFOOD (Cursos)</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-group">
+                                <a href="blog.html" class="dropdown-item">
+                                    <i class="fas fa-blog"></i>
+                                    <span>Blog</span>
+                                </a>
+                                <a href="podcast.html" class="dropdown-item">
+                                    <i class="fas fa-podcast"></i>
+                                    <span>Podcast</span>
+                                </a>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link">Encontre Talentos <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-group">
+                                <a href="guia-anuncios.html" class="dropdown-item">
+                                    <i class="fas fa-book"></i>
+                                    <span>Guia de anúncios</span>
+                                </a>
+                                <a href="descubra-curriculos.html" class="dropdown-item">
+                                    <i class="fas fa-search"></i>
+                                    <span>Descubra currículos</span>
+                                </a>
+                                <a href="top-buscas.html" class="dropdown-item highlight">
+                                    <i class="fas fa-chart-line"></i>
+                                    <span>Top buscas</span>
+                                </a>
+                            </div>
+                            <div class="dropdown-group">
+                                <a href="diferenciais.html" class="dropdown-item">
+                                    <i class="fas fa-star"></i>
+                                    <span>Diferenciais</span>
+                                </a>
+                                <a href="duvidas-frequentes.html" class="dropdown-item">
+                                    <i class="far fa-question-circle"></i>
+                                    <span>Dúvidas frequentes</span>
+                                </a>
+                            </div>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="auth-buttons">
+                <a href="login.html" class="btn btn-text login-button">
+                    <i class="fas fa-sign-in-alt"></i> Entrar
+                </a>
+                <a href="anunciar-vaga.html" class="btn btn-primary">
+                    <i class="fas fa-bullhorn"></i> Anunciar Vaga
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <h1>Encontre seu emprego na área de <span class="typing-text">FOOD SERVICE</span></h1>
+                        <p>Seu próximo passo começa aqui!   Conectamos talentos às melhores oportunidades do mercado de food service</p>
+                        
+                        <div class="search-box">
+                            <div class="search-input">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Cargo">
+                            </div>
+                            <div class="search-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <input type="text" placeholder="Localização">
+                            </div>
+                            <button class="btn btn-primary btn-search">Buscar Vagas</button>
+                        </div>
+
+                        <div class="categories">
+                            <span>Populares:</span>
+                            <a href="#" class="tag">Cozinheiro</a>
+                            <a href="#" class="tag">Garçom</a>
+                            <a href="#" class="tag">Auxiliar</a>
+                            <a href="#" class="tag">Atendente</a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="img/team.jpg" alt="Equipe de profissionais de alimentação" class="hero-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vagas-destaque" class="featured-jobs">
+            <div class="container">
+                <h2>Vagas em Destaque</h2>
+                <div class="jobs-grid" id="jobsContainer">
+                    <!-- Jobs will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <section id="ultimas-vagas" class="latest-jobs">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Últimas Vagas</h2>
+                    <a href="vagas.html" class="view-all">Ver todas as vagas <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="jobs-grid">
+                    <!-- Vaga 1 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <img src="img/placeholder-logo.png" alt="McDonald's">
+                            </div>
+                            <div class="job-info">
+                                <h3>Atendente de Lanchonete</h3>
+                                <p class="company">McDonald's - Shopping Ibirapuera</p>
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo, SP - Ibirapuera</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> R$ 1.650,00 + VR + VT</span>
+                                    <span><i class="fas fa-briefcase"></i> Jornada de 6h</span>
+                                </div>
+                                <p class="job-description">Atendimento ao cliente, preparo de lanches, limpeza do ambiente de trabalho e caixa.</p>
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <span class="job-type">CLT</span>
+                            <span class="job-time"><i class="far fa-clock"></i> 2h atrás</span>
+                            <a href="#" class="btn-apply">Candidatar-se</a>
+                        </div>
+                    </div>
+
+                    <!-- Vaga 2 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <img src="img/placeholder-logo.png" alt="Burger King">
+                            </div>
+                            <div class="job-info">
+                                <h3>Cozinheiro Fast Food</h3>
+                                <p class="company">Burger King - Paulista</p>
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo, SP - Avenida Paulista</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> R$ 1.850,00 + Benefícios</span>
+                                    <span><i class="fas fa-briefcase"></i> Período integral</span>
+                                </div>
+                                <p class="job-description">Preparo de lanches, organização da cozinha, controle de qualidade dos produtos.</p>
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <span class="job-type">CLT</span>
+                            <span class="job-time"><i class="far fa-clock"></i> 4h atrás</span>
+                            <a href="#" class="btn-apply">Candidatar-se</a>
+                        </div>
+                    </div>
+
+                    <!-- Vaga 3 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <img src="img/placeholder-logo.png" alt="Habib's">
+                            </div>
+                            <div class="job-info">
+                                <h3>Atendente de Caixa</h3>
+                                <p class="company">Habib's - Tatuapé</p>
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo, SP - Tatuapé</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> R$ 1.500,00 + VR + VT</span>
+                                    <span><i class="fas fa-briefcase"></i> Meio Período</span>
+                                </div>
+                                <p class="job-description">Atendimento ao cliente, fechamento de caixa, recebimento de pagamentos.</p>
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <span class="job-type">CLT</span>
+                            <span class="job-time"><i class="far fa-clock"></i> 6h atrás</span>
+                            <a href="#" class="btn-apply">Candidatar-se</a>
+                        </div>
+                    </div>
+
+                    <!-- Vaga 4 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <img src="img/placeholder-logo.png" alt="Giraffas">
+                            </div>
+                            <div class="job-info">
+                                <h3>Auxiliar de Cozinha</h3>
+                                <p class="company">Giraffas - Morumbi</p>
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo, SP - Morumbi</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> R$ 1.400,00 + Benefícios</span>
+                                    <span><i class="fas fa-briefcase"></i> Período Integral</span>
+                                </div>
+                                <p class="job-description">Auxiliar no preparo de alimentos, organização da cozinha e limpeza dos equipamentos.</p>
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <span class="job-type">CLT</span>
+                            <span class="job-time"><i class="far fa-clock"></i> 8h atrás</span>
+                            <a href="#" class="btn-apply">Candidatar-se</a>
+                        </div>
+                    </div>
+
+                    <!-- Vaga 5 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <img src="img/placeholder-logo.png" alt="Outback">
+                            </div>
+                            <div class="job-info">
+                                <h3>Garçom/Garçonete</h3>
+                                <p class="company">Outback - Moema</p>
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo, SP - Moema</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> R$ 2.200,00 + Gorjetas</span>
+                                    <span><i class="fas fa-briefcase"></i> Período Noturno</span>
+                                </div>
+                                <p class="job-description">Atendimento às mesas, anotações de pedidos, serviço de alimentos e bebidas.</p>
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <span class="job-type">CLT</span>
+                            <span class="job-time"><i class="far fa-clock"></i> 10h atrás</span>
+                            <a href="#" class="btn-apply">Candidatar-se</a>
+                        </div>
+                    </div>
+
+                    <!-- Vaga 6 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <img src="img/placeholder-logo.png" alt="Starbucks">
+                            </div>
+                            <div class="job-info">
+                                <h3>Barista</h3>
+                                <p class="company">Starbucks - Vila Madalena</p>
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo, SP - Vila Madalena</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> R$ 1.900,00 + Benefícios</span>
+                                    <span><i class="fas fa-briefcase"></i> Meio Período</span>
+                                </div>
+                                <p class="job-description">Preparo de bebidas, atendimento ao cliente, operação de caixa e limpeza do ambiente.</p>
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <span class="job-type">CLT</span>
+                            <span class="job-time"><i class="far fa-clock"></i> 12h atrás</span>
+                            <a href="#" class="btn-apply">Candidatar-se</a>
+                        </div>
+                    </div>
+
+                    <!-- Vaga 7 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <img src="img/placeholder-logo.png" alt="China in Box">
+                            </div>
+                            <div class="job-info">
+                                <h3>Atendente de Tele-entrega</h3>
+                                <p class="company">China in Box - Brooklin</p>
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo, SP - Brooklin</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> R$ 1.600,00 + Comissão</span>
+                                    <span><i class="fas fa-briefcase"></i> Período Integral</span>
+                                </div>
+                                <p class="job-description">Atendimento de pedidos por telefone, organização de entregas e atendimento ao cliente.</p>
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <span class="job-type">CLT</span>
+                            <span class="job-time"><i class="far fa-clock"></i> 1 dia atrás</span>
+                            <a href="#" class="btn-apply">Candidatar-se</a>
+                        </div>
+                    </div>
+
+                    <!-- Vaga 8 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <img src="img/placeholder-logo.png" alt="Bobs">
+                            </div>
+                            <div class="job-info">
+                                <h3>Gerente de Loja</h3>
+                                <p class="company">Bobs - Shopping Ibirapuera</p>
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo, SP - Ibirapuera</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> R$ 3.200,00 + Benefícios</span>
+                                    <span><i class="fas fa-briefcase"></i> Período Integral</span>
+                                </div>
+                                <p class="job-description">Gerenciamento de equipe, controle de estoque, atendimento ao cliente e metas de vendas.</p>
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <span class="job-type">CLT</span>
+                            <span class="job-time"><i class="far fa-clock"></i> 1 dia atrás</span>
+                            <a href="#" class="btn-apply">Candidatar-se</a>
+                        </div>
+                    </div>
+
+                    <!-- Vaga 9 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <img src="img/placeholder-logo.png" alt="Pizza Hut">
+                            </div>
+                            <div class="job-info">
+                                <h3>Pizzaiolo</h3>
+                                <p class="company">Pizza Hut - Moema</p>
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo, SP - Moema</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> R$ 2.100,00 + VR + VT</span>
+                                    <span><i class="fas fa-briefcase"></i> Período Noturno</span>
+                                </div>
+                                <p class="job-description">Preparo de massas, montagem de pizzas, controle de forno e qualidade dos produtos.</p>
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <span class="job-type">CLT</span>
+                            <span class="job-time"><i class="far fa-clock"></i> 1 dia atrás</span>
+                            <a href="#" class="btn-apply">Candidatar-se</a>
+                        </div>
+                    </div>
+
+                    <!-- Vaga 10 -->
+                    <div class="job-card">
+                        <div class="job-header">
+                            <div class="company-logo">
+                                <img src="img/placeholder-logo.png" alt="Subway">
+                            </div>
+                            <div class="job-info">
+                                <h3>Atendente de Lanchonete</h3>
+                                <p class="company">Subway - Pinheiros</p>
+                                <div class="job-meta">
+                                    <span><i class="fas fa-map-marker-alt"></i> São Paulo, SP - Pinheiros</span>
+                                    <span><i class="fas fa-money-bill-wave"></i> R$ 1.550,00 + VR</span>
+                                    <span><i class="fas fa-briefcase"></i> Meio Período</span>
+                                </div>
+                                <p class="job-description">Montagem de lanches, atendimento ao cliente, operação de caixa e limpeza do ambiente.</p>
+                            </div>
+                        </div>
+                        <div class="job-footer">
+                            <span class="job-type">CLT</span>
+                            <span class="job-time"><i class="far fa-clock"></i> 2 dias atrás</span>
+                            <a href="#" class="btn-apply">Candidatar-se</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Emprego Food</h3>
+                    <p>Conectando talentos a oportunidades</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#">Termos de Uso</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p>contato@gastronomiajobs.com.br</p>
+                    <p>(11) 99999-9999</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Gastronomia Jobs. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="login-modal">
+        <div class="login-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="login-form">
+                <div class="login-header">
+                    <h2>Bem-vindo!</h2>
+                    <p>Faça login para acessar sua conta</p>
+                </div>  
+                <div class="social-login">
+                    <button type="button" class="btn-social">
+                        <img src="https://www.google.com/favicon.ico" alt="Google">
+                        Continuar com Google
+                    </button>
+                    <button type="button" class="btn-social">
+                        <i class="fab fa-linkedin" style="color: #0077b5; margin-right: 10px;"></i>
+                        Continuar com LinkedIn
+                    </button>
+                </div>
+                                    
+                <div class="divider">ou</div>
+
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" class="form-control" placeholder="seu@email.com" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <label for="password">Senha</label>
+                            <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                        </div>
+                        <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                    </div>
+                  
+                    <button type="submit" class="btn-login">Entrar</button>
+                    </div>
+
+                    <p class="signup-link">
+                        Não tem uma conta? <a href="#" id="showSignup">Cadastre-se</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
